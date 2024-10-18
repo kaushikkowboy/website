@@ -3,9 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>kaushik.dev - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+            position: relative;
+            background: rgba(10, 10, 10, 0.8);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00ffee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            position: relative;
+        }
+
+        h1::before {
+            content: 'kaushik.dev';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(45deg, #00ff88, #00ffee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0.5;
+            animation: glitch 3s infinite;
+        }
+
+        h1::after {
+            content: 'kaushik.dev';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(45deg, #ff0088, #ff00ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            opacity: 0.5;
+            animation: glitch 2s infinite reverse;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #888;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+
+        .countdown {
+            font-size: 2rem;
+            color: #00ff88;
+            margin-bottom: 2rem;
+            font-family: monospace;
+            text-shadow: 0 0 10px #00ff88;
+        }
+
+        .matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 50%,
+                rgba(0, 255, 136, 0.02) 50%);
+            background-size: 100% 4px;
+            z-index: 1;
+            pointer-events: none;
+            animation: scroll 8s linear infinite;
+        }
+
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 1;
+            pointer-events: none;
+            animation: glitchOverlay 5s infinite;
+        }
+
+        .email-container {
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .email-input {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            border-color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .notify-btn {
+            padding: 0.8rem 2rem;
+            margin-left: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00ffee);
+            border: none;
+            border-radius: 25px;
+            color: #0a0a0a;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notify-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .binary-rain {
+            position: fixed;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 14px;
+            line-height: 1;
+            white-space: nowrap;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes scroll {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        @keyframes glitchOverlay {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 0; }
+            11%, 89% { opacity: 0.1; }
+            45%, 50% { opacity: 0.3; }
+            48% { opacity: 0; background: rgba(0, 255, 136, 0.2); }
+            49% { opacity: 0.3; background: rgba(255, 0, 136, 0.2); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .email-container {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .notify-btn {
+                margin-left: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    Hello, World
+    <canvas class="matrix-canvas" id="matrix"></canvas>
+    <div class="scanline"></div>
+    <div class="glitch-overlay"></div>
+    <div class="container">
+        <h1>kaushik.dev</h1>
+        <p class="subtitle">Something awesome is in the works</p>
+        <div class="countdown" id="countdown">Loading...</div>
+        <!-- <div class="email-container">
+            <input type="email" class="email-input" placeholder="Enter your email">
+            <button class="notify-btn">Notify Me</button>
+        </div> -->
+    </div>
+
+    <script>
+        // Matrix effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = '01010101アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        const charArray = chars.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.random() * -canvas.height;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Binary rain effect
+        function createBinaryRain() {
+            const rain = document.createElement('div');
+            rain.className = 'binary-rain';
+            rain.style.left = Math.random() * window.innerWidth + 'px';
+            rain.style.animationDuration = (Math.random() * 2 + 1) + 's';
+            rain.style.opacity = Math.random();
+            rain.innerText = Math.random() > 0.5 ? '0' : '1';
+            document.body.appendChild(rain);
+
+            const duration = Math.random() * 2000 + 1000;
+            rain.style.animation = `fall ${duration}ms linear`;
+
+            setTimeout(() => {
+                document.body.removeChild(rain);
+            }, duration);
+        }
+
+        setInterval(createBinaryRain, 100);
+        setInterval(drawMatrix, 50);
+
+        // Countdown timer
+        const launchDate = new Date();
+        launchDate.setDate(launchDate.getDate() + 30);
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = launchDate - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = 
+                `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Email notification
+        document.querySelector('.notify-btn').addEventListener('click', () => {
+            const email = document.querySelector('.email-input').value;
+            if (email && email.includes('@')) {
+                alert('Thank you! We\'ll notify you when we launch.');
+                document.querySelector('.email-input').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
